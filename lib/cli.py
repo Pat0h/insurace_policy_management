@@ -1,5 +1,5 @@
 import click
-from models import Policy, Policyholder, Claim
+from lib.models import Policy, Policyholder, Claim
 from premium import calculate_premium
 from database import (
     create_policy,
@@ -13,38 +13,29 @@ from database import (
     delete_claim,
 )
 
-
 @click.group()
 def cli():
     pass
 
-
 @cli.command()
 def list_policies():
-    click.echo('All policies')
-
-
-@cli.command()
-def view_policy(policy_id):
-    click.echo(f'Viewing policy with Id: {policy_id}')
-
-
-@cli.command()
-@click.argument('policy_type')
-@click.argument('start')
-@click.argument('end')
-def create_policy(policy_type, start, end):
-    click.echo(f'Creating new policy- Type: {policy_type}, Start Date: {start}, End Date: {end}')
-
+    policies = []  # Retrieve policies from the database using appropriate function
+    click.echo('All policies:')
+    for policy in policies:
+        click.echo(f'- Policy ID: {policy.id}, Type: {policy.policy_type}, Start Date: {policy.start}, End Date: {policy.end}')
 
 @cli.command()
 @click.argument('policy_id')
-def delete_policy(policy_id):
-    click.echo(f'Deleting policy with Id: {policy_id}')
-
-
-if __name__ == '__main__':
-    cli()
+def view_policy(policy_id):
+    policy = get_policy_by_id(policy_id)
+    if policy:
+        click.echo(f'Policy Details for ID {policy_id}:')
+        click.echo(f'- Type: {policy.policy_type}')
+        click.echo(f'- Start Date: {policy.start}')
+        click.echo(f'- End Date: {policy.end}')
+        # Add other attributes as needed
+    else:
+        click.echo(f'Policy with ID {policy_id} not found.')
 
 @cli.command()
 @click.argument('policy_type')
@@ -55,4 +46,7 @@ if __name__ == '__main__':
 def create_policy(policy_type, start, end, policyholder_age, coverage):
     premium = calculate_premium(policy_type, coverage, policyholder_age)
     new_policy = create_policy(policy_type, start, end, premium, coverage)
-    click.echo(f'Creating new policy- Type: {policy_type}, Start Date: {start}, End Date: {end}, Premium: {premium}')
+    click.echo(f'Created new policy - Type: {policy_type}, Start Date: {start}, End Date: {end}, Premium: {premium}')
+
+if __name__ == '__main__':
+    cli()
