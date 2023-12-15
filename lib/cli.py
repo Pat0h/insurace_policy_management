@@ -19,7 +19,7 @@ def cli():
 
 @cli.command()
 def list_policies():
-    policies = []  # Retrieve policies from the database using appropriate function
+    policies = []
     click.echo('All policies:')
     for policy in policies:
         click.echo(f'- Policy ID: {policy.id}, Type: {policy.policy_type}, Start Date: {policy.start}, End Date: {policy.end}')
@@ -41,7 +41,7 @@ def view_policy(policy_id):
 @click.argument('policy_type')
 @click.argument('start')
 @click.argument('end')
-@click.argument('policyholder_age', type=int)  # Assuming age is provided as an argument
+@click.argument('policyholder_age', type=int)
 @click.argument('coverage')
 def create_policy(policy_type, start, end, policyholder_age, coverage):
     premium = calculate_premium(policy_type, coverage, policyholder_age)
