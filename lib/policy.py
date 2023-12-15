@@ -16,3 +16,18 @@ class Policy(Base):
     policyholder_id = Column(Integer, ForeignKey('policyholders.id'))
 
     policyholder = relationship('Policyholder', back_populates='policies')
+
+
+class Policyholder(Base):
+    __table__ = 'policyholders'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    email = Column(String)
+    phone_number = Column(String)
+    address = Column(String)
+
+    policies = relationship('Policy', back_populates='policyholder')
+
+
+class Claim()
