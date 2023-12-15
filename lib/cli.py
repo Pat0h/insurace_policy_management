@@ -1,5 +1,5 @@
 import click
-from models import Policy, Policyholder, Claim
+# from models import Policy, Policyholder, Claim
 from premium import calculate_premium
 from database import (
     create_policy,
