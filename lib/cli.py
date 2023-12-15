@@ -1,5 +1,16 @@
 import click
 from models import Policy, Policyholder, Claim
+from database import (
+    create_policy,
+    get_policy_by_id,
+    delete_policy,
+    create_policyholder,
+    get_policyholder_by_id,
+    delete_policyholder,
+    create_claim,
+    get_claim_by_id,
+    delete_claim,
+)
 
 
 @click.group()
