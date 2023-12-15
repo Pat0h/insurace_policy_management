@@ -1,5 +1,6 @@
 import click
 from models import Policy, Policyholder, Claim
+from premium import calculate_premium
 from database import (
     create_policy,
     get_policy_by_id,
@@ -44,3 +45,14 @@ def delete_policy(policy_id):
 
 if __name__ == '__main__':
     cli()
+
+@cli.command()
+@click.argument('policy_type')
+@click.argument('start')
+@click.argument('end')
+@click.argument('policyholder_age', type=int)  # Assuming age is provided as an argument
+@click.argument('coverage')
+def create_policy(policy_type, start, end, policyholder_age, coverage):
+    premium = calculate_premium(policy_type, coverage, policyholder_age)
+    new_policy = create_policy(policy_type, start, end, premium, coverage)
+    click.echo(f'Creating new policy- Type: {policy_type}, Start Date: {start}, End Date: {end}, Premium: {premium}')

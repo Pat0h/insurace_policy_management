@@ -37,6 +37,6 @@ class Claim(Base):
     id = Column(Integer, primary_key=True)
     policy_id = Column(Integer, ForeignKey('policies.id'))
     policyholder_id = Column(Integer, ForeignKey('policyholders.id'))
-    claim = Column(String)
+    claim_date = Column(String)
     claim_details = Column(String)
     status = Column(String)
