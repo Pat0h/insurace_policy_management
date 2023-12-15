@@ -4,8 +4,9 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class Policy(Base):
-    __table__ = 'policies'
+    __tablename__ = 'policies'
 
     id = Column(Integer, primary_key=True)
     policy_type = Column(String)
@@ -19,7 +20,7 @@ class Policy(Base):
 
 
 class Policyholder(Base):
-    __table__ = 'policyholders'
+    __tablename__ = 'policyholders'
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -31,7 +32,7 @@ class Policyholder(Base):
 
 
 class Claim(Base):
-    __table__ = 'claims'
+    __tablename__ = 'claims'
 
     id = Column(Integer, primary_key=True)
     policy_id = Column(Integer, ForeignKey('policies.id'))
@@ -39,4 +40,3 @@ class Claim(Base):
     claim = Column(String)
     claim_details = Column(String)
     status = Column(String)
-
