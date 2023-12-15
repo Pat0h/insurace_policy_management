@@ -30,4 +30,13 @@ class Policyholder(Base):
     policies = relationship('Policy', back_populates='policyholder')
 
 
-class Claim()
+class Claim(Base):
+    __table__ = 'claims'
+
+    id = Column(Integer, primary_key=True)
+    policy_id = Column(Integer, ForeignKey('policies.id'))
+    policyholder_id = Column(Integer, ForeignKey('policyholders.id'))
+    claim = Column(String)
+    claim_details = Column(String)
+    status = Column(String)
+
